@@ -1,0 +1,130 @@
+{
+  "ranAt": "2026-11-23T18:07:04.613Z",
+  "baselineBundle": "4705f9990eb6f041f7b9f9df38da504c",
+  "restoredBundleMatches": true,
+  "killed": 11,
+  "total": 11,
+  "records": [
+    {
+      "id": "M01",
+      "what": "multiply placed on the same page as square (brief D1)",
+      "file": "src/enclave/modexp.ts",
+      "owner": "npx vitest run -t \"500 random 64-bit exponents\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "FAIL  src/enclave/enclave.test.ts > B. Recovery from the leaky trace > 500 random 64-bit exponents: every bit recovered from the trace, and every result matches BigInt pow"
+    },
+    {
+      "id": "M02",
+      "what": "oblivious step branches on the bit: multiply only when it is 1 (brief D2)",
+      "file": "src/enclave/modexp-oblivious.ts",
+      "owner": "npx vitest run -t \"traces are identical across 500 seeded exponents\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "FAIL  src/enclave/enclave.test.ts > C. The oblivious rewrite (w = 64) > traces are identical across 500 seeded exponents and 0, 1, 2^64 − 1; 128 steps; results correct"
+    },
+    {
+      "id": "M03",
+      "what": "observer given the exponent (brief D3)",
+      "file": "src/enclave/run.ts",
+      "owner": "npx vitest run -t \"the observation has exactly program, width and faults\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "FAIL  src/enclave/enclave.test.ts > Invariant 1: the OS receives page numbers and public metadata only > the observation has exactly program, width and faults — and no exponent, result or branch label anywhere in it"
+    },
+    {
+      "id": "M04",
+      "what": "recovery reads the bits right-to-left (brief D4)",
+      "file": "src/attack/recover.ts",
+      "owner": "npx vitest run -t \"500 random 64-bit exponents\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "FAIL  src/enclave/enclave.test.ts > B. Recovery from the leaky trace > 500 random 64-bit exponents: every bit recovered from the trace, and every result matches BigInt pow"
+    },
+    {
+      "id": "M05",
+      "what": "negative-claim sentence deleted from the fixture (§4.1d bite, assertion 3)",
+      "file": "src/ui/recoverPanel.ts",
+      "owner": "npx playwright test --project=claims --retries=0 -g \"the negative claim: memory sealed, arithmetic correct\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "✘  1 [claims] › e2e/claims.spec.ts:54:3 › displayed claims › the negative claim: memory sealed, arithmetic correct, and the key read from its footsteps (5.6s)"
+    },
+    {
+      "id": "M06",
+      "what": "a check inside the fixture broken: the data page left out of the enclave, so the OS read succeeds (§4.1d bite, assertion 2)",
+      "file": "src/enclave/model.ts",
+      "owner": "npx playwright test --project=claims --retries=0 -g \"the negative claim: memory sealed, arithmetic correct\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "✘  1 [claims] › e2e/claims.spec.ts:54:3 › displayed claims › the negative claim: memory sealed, arithmetic correct, and the key read from its footsteps (624ms)"
+    },
+    {
+      "id": "M07",
+      "what": "a truncated trace is decoded as if complete",
+      "file": "src/attack/recover.ts",
+      "owner": "npx vitest run -t \"a truncated trace\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "FAIL  src/enclave/enclave.test.ts > E. Fail-closed edge cases > a truncated trace: the certain leading bits, and the tail reported as unknown"
+    },
+    {
+      "id": "M08",
+      "what": "exponent 0 runs the loop instead of returning 1",
+      "file": "src/enclave/modexp.ts",
+      "owner": "npx vitest run -t \"exponent 0: the leaky trace is empty\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "FAIL  src/enclave/enclave.test.ts > E. Fail-closed edge cases > exponent 0: the leaky trace is empty and the page says there is nothing to recover; the oblivious run still has 128 steps"
+    },
+    {
+      "id": "M09",
+      "what": "the oblivious program accepts an exponent wider than w",
+      "file": "src/enclave/modexp-oblivious.ts",
+      "owner": "npx vitest run -t \"an exponent wider than w is refused\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "FAIL  src/enclave/enclave.test.ts > E. Fail-closed edge cases > an exponent wider than w is refused by the oblivious program"
+    },
+    {
+      "id": "M10",
+      "what": "the OS reads the counters by byte address, not page: shared-page counts become exact",
+      "file": "src/enclave/countlogin.ts",
+      "owner": "npx vitest run -t \"one shared page: the OS sees only the total\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "FAIL  src/enclave/enclave.test.ts > Xu et al. §III-A, Figure 2 (counting logins) > one shared page: the OS sees only the total"
+    },
+    {
+      "id": "M11",
+      "what": "gate bite: muted text token darkened below 4.5:1",
+      "file": "src/style.css",
+      "owner": "npx playwright test --project=a11y --retries=0 -g \"dark theme$\"",
+      "ownerPassedUnmutated": true,
+      "bundleHashChanged": true,
+      "ownerFailedMutated": true,
+      "result": "KILLED",
+      "evidence": "✘  1 [a11y] › e2e/a11y.spec.ts:25:3 › no WCAG A/AA violations in dark theme (1.8s)"
+    }
+  ]
+}
