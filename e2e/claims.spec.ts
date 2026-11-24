@@ -113,8 +113,10 @@ test.describe('displayed claims', () => {
     await page.locator('#login-run').click();
     expect(await text(page, '[data-claim="login-os-m"]')).toBe(await text(page, '[data-claim="login-true-m"]'));
     expect(await text(page, '[data-claim="login-os-f"]')).toBe(await text(page, '[data-claim="login-true-f"]'));
+    const before = await text(page, '[data-claim="login-true-m"]');
     await page.locator('#login-layout').selectOption('shared');
-    await page.locator('#login-run').click();
+    await expect(page.locator('[data-claim="login-true-m"]')).toHaveText(before);
+    await expect(page.locator('#login-out .verdict-pass')).toBeVisible();
     const total = Number(await text(page, '[data-claim="login-true-m"]')) + Number(await text(page, '[data-claim="login-true-f"]'));
     expect(Number(await text(page, '[data-claim="login-os-m"]'))).toBe(total);
     await expect(page.locator('[data-claim="login-os-f"]')).toHaveText('0');

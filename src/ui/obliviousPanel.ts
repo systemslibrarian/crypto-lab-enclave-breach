@@ -38,6 +38,12 @@ export function renderObliviousPanel(root: HTMLElement): void {
       verdict('pass', 'The OS sees the same page sequence whatever the exponent is.'),
     );
   });
+  store.onChange(() => {
+    if (out.hasChildNodes()) {
+      clear(out);
+      out.append(h('p', {}, 'The enclave inputs changed. Run the oblivious version again to compare the new traces.'));
+    }
+  });
   root.append(
     panelIntro(
       'The oblivious rewrite',
